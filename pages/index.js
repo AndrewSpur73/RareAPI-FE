@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { checkUser, signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/forms/RegisterForm';
 
 function Home() {
   const { user } = useAuth();

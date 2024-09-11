@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useAuth } from '../utils/context/authContext';
-import { registerUser } from '../utils/auth';
+import { useAuth } from '../../utils/context/authContext';
+import { registerUser } from '../../utils/auth';
 
 function RegisterForm() {
   const { user, updateUser } = useAuth();
@@ -22,7 +22,7 @@ function RegisterForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     registerUser(formData).then(() => updateUser(user.fbUser.firebaseId));
-    router.push('/users');
+    router.push('/');
   };
 
   return (
