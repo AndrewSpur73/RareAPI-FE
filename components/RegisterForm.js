@@ -1,28 +1,49 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { registerUser } from '../utils/auth'; // Update with path to registerUser
+import { useAuth } from '../utils/context/authContext';
+import { registerUser } from '../utils/auth';
 
-function RegisterForm({ user, updateUser }) {
+function RegisterForm() {
+  const { user, updateUser } = useAuth();
+
   const [formData, setFormData] = useState({
+    firebaseId: user.fbUser.firebaseId,
+    userName: '',
+    email: '',
     bio: '',
-    uid: user.uid,
+    image: '',
   });
+
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.uid));
+    registerUser(formData).then(() => updateUser(user.fbUser.firebaseId));
+    router.push('/users');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
-        <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
+      <Form.Group className="mb-3" controlId="formBasicUserName">
+        <Form.Label>Username</Form.Label>
+        <Form.Control type="text" name="userName" required placeholder="Enter A Username" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" name="email" required placeholder="Enter your Email" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicBio">
+        <Form.Label>Bio</Form.Label>
+        <Form.Control type="text" name="Bio" required placeholder="Enter a Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicImage">
+        <Form.Label>Profile Image</Form.Label>
+        <Form.Control type="url" name="image" required placeholder="Enter an image URL" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+      </Form.Group>
+      <Button variant="danger" type="submit">
         Submit
       </Button>
     </Form>
@@ -31,9 +52,12 @@ function RegisterForm({ user, updateUser }) {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    fbUser: PropTypes.shape({
+      firebaseId: PropTypes.string.isRequired,
+      userName: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
-  updateUser: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

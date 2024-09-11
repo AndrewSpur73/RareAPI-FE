@@ -1,8 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const checkUser = (uid) => new Promise((resolve, reject) => {
-  fetch(`https://localhost:8000/checkuser/${uid}`, {
+const checkUser = (firebaseId) => new Promise((resolve, reject) => {
+  fetch(`https://localhost:8000/checkuser/${firebaseId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
