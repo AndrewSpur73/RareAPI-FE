@@ -13,8 +13,11 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
+        {/* <Link passHref href="/">
+          <Image src="/images/image-removebg-preview.png" alt="RNKR" height={100} width={100} className="cursor-pointer" style={{ marginLeft: '50px' }} />
+        </Link> */}
         <Link passHref href="/">
-          <Navbar.Brand>CHANGE ME</Navbar.Brand>
+          <Navbar.Brand>@$$</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -23,8 +26,8 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="/">
-              <Nav.Link>Delete Me</Nav.Link>
+            <Link passHref href="/users">
+              <Nav.Link>Profile Page</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out

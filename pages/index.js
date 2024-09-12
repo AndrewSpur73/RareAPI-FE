@@ -9,17 +9,18 @@ function Home() {
   const [authUser, setAuthUser] = useState();
 
   useEffect(() => {
-    checkUser(user.firebaseId).then((data) => setAuthUser(data));
+    checkUser(user.uid).then((data) => setAuthUser(data));
+    console.warn(user);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onUpdate = () => {
-    checkUser(user.firebaseId).then((data) => setAuthUser(data));
+    checkUser(user.uid).then((data) => setAuthUser(data));
   };
 
   return (
     <>
-      {authUser?.firebaseId === user?.firebaseId ? (
+      {authUser?.uid === user?.uid ? (
         <div
           className="d-flex flex-column align-items-center justify-content-center"
           style={{
