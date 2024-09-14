@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
 import { createPost, updatePost } from '../../api/postData';
-import { getAllTags } from '../../api/tagData';
+// import { getAllTags } from '../../api/tagData';
 
 const initialState = {
   title: '',
@@ -17,13 +17,13 @@ const initialState = {
 
 export default function PostForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [tags, setTags] = useState([]);
+  const [tags] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
-  useEffect(() => {
-    getAllTags().then(setTags);
-    if (obj.id) setFormInput(obj);
-  }, [obj, user]);
+  // useEffect(() => {
+  //   getAllTags().then(setTags);
+  //   if (obj.id) setFormInput(obj);
+  // }, [obj, user]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
