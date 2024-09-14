@@ -10,7 +10,7 @@ function RegisterForm() {
   const { user, updateUser } = useAuth();
 
   const [formData, setFormData] = useState({
-    firebaseId: user.fbUser.firebaseId,
+    uid: user.fbUser.uid,
     userName: '',
     email: '',
     bio: '',
@@ -21,8 +21,8 @@ function RegisterForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    registerUser(formData).then(() => updateUser(user.fbUser.firebaseId));
-    router.push('/');
+    registerUser(formData).then(() => updateUser(user.fbUser.uid));
+    router.push('/users');
   };
 
   return (
@@ -52,9 +52,10 @@ function RegisterForm() {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
+    imageUrl: PropTypes.string.isRequired,
     fbUser: PropTypes.shape({
-      firebaseId: PropTypes.string.isRequired,
-      userName: PropTypes.string.isRequired,
+      uid: PropTypes.string.isRequired,
+      displayName: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
