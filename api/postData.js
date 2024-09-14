@@ -60,4 +60,6 @@ const updatePost = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
-export { getAllPosts, getSinglePost, deletePost, createPost, updatePost };
+export {
+  getAllPosts, getSinglePost, deletePost, createPost, updatePost,
+};
