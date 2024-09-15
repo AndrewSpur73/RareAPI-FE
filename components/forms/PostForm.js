@@ -12,7 +12,7 @@ const initialState = {
   content: '',
   category: '',
   imageUrl: '',
-  tagId: [],
+  tagIds: [], // Initialize as an empty array
 };
 
 export default function PostForm({ obj }) {
@@ -20,9 +20,13 @@ export default function PostForm({ obj }) {
   const [tags, setTags] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
+
   useEffect(() => {
     getAllTags().then(setTags);
-    if (obj.id) setFormInput({ ...obj, tagIds: obj.postTags.map((tag) => tag.tag.id) });
+    if (obj.id) {
+      const tagIds = obj.postTags ? obj.postTags.map((tag) => tag.tag?.id) : [];
+      setFormInput({ ...obj, tagIds });
+    }
   }, [obj, user]);
 
   const handleChange = (e) => {
@@ -31,7 +35,7 @@ export default function PostForm({ obj }) {
     } = e.target;
     if (type === 'checkbox') {
       const currentTagIds = [...formInput.tagIds];
-      const tagId = parseInt(e.target.value, 10); // Assuming value attribute holds tag id
+      const tagId = parseInt(value, 10);
       if (checked) {
         currentTagIds.push(tagId);
       } else {
@@ -43,7 +47,6 @@ export default function PostForm({ obj }) {
         tagIds: currentTagIds,
       }));
     } else {
-      // Handle other input types (text, url, etc.)
       setFormInput((prevState) => ({
         ...prevState,
         [name]: value,
@@ -53,25 +56,27 @@ export default function PostForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const payload = { ...formInput, uid: user.uid };
+
     if (obj.id) {
-      console.warn(formInput);
-      updatePost(formInput).then(() => router.push('/feed'));
+      // Ensure we're sending the correct form input, including tagIds
+      updatePost(payload).then(() => router.push('/feed'));
     } else {
-      const payload = { ...formInput, tagIds: formInput.tagId, uid: user.uid };
-      createPost(payload).then((title) => {
-        const patchPayload = { id: title };
-        updatePost(patchPayload).then(() => {
-          router.push('/feed');
-        });
+      // Handle post creation
+      createPost(payload).then(() => {
+        router.push('/feed');
       });
     }
   };
+
   return (
     <div className="flex w-[500px] mx-auto inter-normal">
       <div className="flex-grow mt-32">
         <Form onSubmit={handleSubmit}>
           <Form.Label>{obj.id ? 'Update' : 'Create'} Post</Form.Label>
-          {/* TITLE INPUT  */}
+
+          {/* TITLE INPUT */}
           <Form.Group controlId="formTitle" className="mb-3">
             <Form.Control
               type="text"
@@ -83,7 +88,8 @@ export default function PostForm({ obj }) {
               required
             />
           </Form.Group>
-          {/* POST CONTENT TEXTAREA  */}
+
+          {/* CONTENT TEXTAREA */}
           <Form.Group controlId="formContent" className="mb-3">
             <Form.Control
               as="textarea"
@@ -97,7 +103,7 @@ export default function PostForm({ obj }) {
             />
           </Form.Group>
 
-          {/* POST IMAGE URL  */}
+          {/* IMAGE URL */}
           <Form.Group controlId="formBasicImage" className="mb-3">
             <Form.Control
               type="text"
@@ -108,6 +114,8 @@ export default function PostForm({ obj }) {
               className="input rounded-none"
             />
           </Form.Group>
+
+          {/* TAG CHECKBOXES */}
           <div>
             <b>Tags: </b>
             {tags.map((tag) => (
@@ -116,14 +124,14 @@ export default function PostForm({ obj }) {
                   type="checkbox"
                   value={tag.id}
                   onChange={handleChange}
-                  checked={formInput.tagIds.includes(tag.id)}
+                  checked={formInput.tagIds.includes(tag.id)} // Safeguard against undefined tagIds
                 />
                 {tag.name}
               </label>
             ))}
           </div>
 
-          {/* SUBMIT BUTTON  */}
+          {/* SUBMIT BUTTON */}
           <Button type="submit" className="form-button">
             {obj.id ? 'Update' : 'Create'} Post
           </Button>
