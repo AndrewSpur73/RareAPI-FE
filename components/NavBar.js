@@ -32,6 +32,9 @@ export default function NavBar() {
             <Link passHref href="/feed">
               <Nav.Link>Feed</Nav.Link>
             </Link>
+            <Link passHref href="/new">
+              <Nav.Link>Add a Post</Nav.Link>
+            </Link>
             <Link passHref href="/tags">
               <Nav.Link>Tags</Nav.Link>
             </Link>

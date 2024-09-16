@@ -10,7 +10,6 @@ import { getAllTags } from '../../api/tagData';
 const initialState = {
   title: '',
   content: '',
-  category: '',
   imageUrl: '',
   tagIds: [], // Initialize as an empty array
 };
@@ -57,7 +56,7 @@ export default function PostForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const payload = { ...formInput, uid: user.uid };
+    const payload = { ...formInput, userId: user.id };
 
     if (obj.id) {
       // Ensure we're sending the correct form input, including tagIds
@@ -106,7 +105,7 @@ export default function PostForm({ obj }) {
           {/* IMAGE URL */}
           <Form.Group controlId="formBasicImage" className="mb-3">
             <Form.Control
-              type="text"
+              type="url"
               name="imageUrl"
               placeholder="Enter an image URL"
               value={formInput.imageUrl || ''}
@@ -143,7 +142,6 @@ export default function PostForm({ obj }) {
 PostForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    userId: PropTypes.number,
     tagIds: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string,
     content: PropTypes.string,
