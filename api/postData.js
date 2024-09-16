@@ -40,6 +40,7 @@ const createPost = (payload) => new Promise((resolve, reject) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+
     },
     body: JSON.stringify(payload),
   })

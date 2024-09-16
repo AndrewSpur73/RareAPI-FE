@@ -8,7 +8,7 @@ import CommentForm from '../../components/forms/CommentForm';
 import { deleteComment, editComment } from '../../api/commentData';
 // import TagCard from '../../components/TagCard';
 
-export default function ViewArt() {
+export default function ViewPost() {
   const { user } = useAuth();
   const [postDetails, setPostDetails] = useState({});
   const router = useRouter();
