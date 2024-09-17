@@ -19,7 +19,6 @@ export default function TagForm({ tagObj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload = { ...formInput };
-    console.warn(payload);
     if (tagObj.id) {
       payload = { ...formInput, id: tagObj.id };
       editTag(payload).then(() => router.push('/tags'));
@@ -38,7 +37,6 @@ export default function TagForm({ tagObj }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      {console.warn(tagObj)}
       <Form.Group as={Col} md="6" controlId="validationName">
         <Form.Label>Tag Name</Form.Label>
         <Form.Control

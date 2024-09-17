@@ -18,7 +18,7 @@ export default function ShowAllPosts() {
       <div>
         <div className="d-flex flex-wrap justify-content-center align-items-center">
           {posts.map((post) => (
-            <PostCard key={post.Id} postObj={post} onUpdate={showPosts} />
+            <PostCard key={post.id} postObj={post} onUpdate={showPosts} />
           ))}
         </div>
       </div>

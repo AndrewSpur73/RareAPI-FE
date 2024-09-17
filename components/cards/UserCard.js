@@ -9,12 +9,17 @@ function UserDetailCard({ userDetails }) {
     <Card className="user-details-card" style={{ width: '22rem', margin: '20px' }}>
       <Card.Body>
         <Card.Title className="d-flex flex-column align-items-center justify-content-center" id="user-detail-card-title">Profile</Card.Title>
-        <Card.Img variant="top" src={userDetails.imageUrl} alt={userDetails.userName} style={{ height: '400px', borderBottom: '5px solid black' }} />
+        <Card.Img
+          variant="top"
+          src={userDetails.imageUrl || ''}
+          alt={userDetails.userName || ''}
+          style={{ height: '400px', borderBottom: '5px solid black' }}
+        />
         <Card.Text><strong>User Name:</strong> {userDetails.userName}</Card.Text>
         <Card.Text><strong>Email:</strong> {userDetails.email}</Card.Text>
         <Card.Text><strong>Bio:</strong> {userDetails.bio}</Card.Text>
         <div className="d-flex flex-column align-items-center justify-content-center">
-          {/* <Link href={`/user/${userDetails.uid}`} passHref>
+          {/* <Link href={`/user/${userDetails.id}`} passHref>
             <Button className="user-card-button" variant="danger">EDIT</Button>
           </Link> */}
         </div>

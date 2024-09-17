@@ -3,15 +3,24 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import UserCard from '../components/cards/UserCard';
 import getUserDetails from '../api/userData';
+import { getAllPosts } from '../api/postData';
+import PostCard from '../components/cards/PostCard';
+import { useAuth } from '../utils/context/authContext';
 
 const UserDetailsPage = () => {
   const [userDetails, setUserDetails] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const { user } = useAuth();
+
+  const showPosts = () => {
+    getAllPosts()?.then(setPosts);
+  };
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.warn(user);
-        const authenticatedUserId = user.uid;
+    showPosts();
+    const unsubscribe = firebase.auth().onAuthStateChanged((fbUser) => {
+      if (fbUser) {
+        const authenticatedUserId = fbUser.uid;
         getUserDetails(authenticatedUserId)
           .then((data) => {
             setUserDetails(data);
@@ -20,7 +29,7 @@ const UserDetailsPage = () => {
             console.error('Error fetching user details:', error);
           });
       } else {
-        console.log('No user is signed in.');
+        console.warn('No user is signed in.');
       }
     });
 
@@ -28,13 +37,27 @@ const UserDetailsPage = () => {
   }, []);
 
   return (
-    <div className="user-details-container">
-      {userDetails && (
+    <>
+      <div className="user-details-container">
+        {userDetails && (
         <>
           <UserCard userDetails={userDetails} />
         </>
-      )}
-    </div>
+        )}
+      </div>
+      <div id="post-page-div">
+        <h1 className="h1"> Posts </h1><br />
+        <div>
+          <div className="d-flex flex-wrap justify-content-center align-items-center">
+            {posts
+              .filter((post) => post.userId === user.id)
+              .map((post) => (
+                <PostCard key={post.id} postObj={post} onUpdate={showPosts} />
+              ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -41,7 +41,7 @@ function RegisterForm() {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicImage">
         <Form.Label>Profile Image</Form.Label>
-        <Form.Control type="url" name="image" required placeholder="Enter an image URL" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+        <Form.Control type="url" name="imageUrl" required placeholder="Enter an image URL" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
       </Form.Group>
       <Button variant="danger" type="submit">
         Submit
@@ -52,7 +52,7 @@ function RegisterForm() {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
-    imageUrl: PropTypes.string.isRequired,
+    // imageUrl: PropTypes.string.isRequired,
     fbUser: PropTypes.shape({
       uid: PropTypes.string.isRequired,
       displayName: PropTypes.string.isRequired,
