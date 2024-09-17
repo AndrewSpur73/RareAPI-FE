@@ -32,7 +32,6 @@ export default function Tags() {
   };
   return (
     <>
-      {console.warn(user)}
       <Button style={{ margin: '5px 0px 5px 0px' }} onClick={() => router.push('/tags/new')}>
         Add Tag
       </Button>

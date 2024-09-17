@@ -11,7 +11,6 @@ export default function CommentForm({ postId, onCommentAdded }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = { postId, content: commentText, userId: user.id };
-    console.warn(payload);
     createComment(payload).then((newComment) => {
       onCommentAdded(newComment);
       setCommentText('');
