@@ -20,6 +20,7 @@ export default function ViewPost() {
 
   useEffect(() => {
     getPostDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const addComment = (newComment) => {
