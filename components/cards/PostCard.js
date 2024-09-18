@@ -17,6 +17,7 @@ function PostCard({ postObj, onUpdate }) {
     }}
     > {console.warn(postObj)}
       <Card.Img variant="top" src={postObj.imageUrl} alt={postObj.title} style={{ height: '400px' }} />
+      {console.warn(postObj)}
       <Card.Body>
         <Card.Title>{postObj.title}</Card.Title>
         <Card.Text>{postObj.postTags?.map((tag) => (
