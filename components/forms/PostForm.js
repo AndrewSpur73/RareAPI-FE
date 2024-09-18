@@ -57,8 +57,6 @@ export default function PostForm({ obj }) {
     e.preventDefault();
 
     const payload = { ...formInput, userId: user.id };
-    console.warn(payload);
-
     if (obj.id) {
       // Ensure we're sending the correct form input, including tagIds
       updatePost(payload).then(() => router.push('/feed'));

@@ -18,7 +18,7 @@ a {
 }
 
 body {
-  background-color: #3b0808bb;
+  background-color: #779ab8;
 }
 
 .user-details-container {
@@ -26,4 +26,30 @@ body {
   justify-content: center;  /* Centers horizontally */
   align-items: center;       /* Centers vertically */
   height: 50vh;             /* Full viewport height */
+}
+
+.navbar-text {
+  color: #ffffff !important;
+  transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+.navbar-text:hover,
+.navbar-text:focus,
+.navbar-text:active {
+  color: #ff26cc !important; /* Change text color on hover, focus, and active */
+}
+
+.navbar-text.active {
+  color: #ff26cc !important; /* Keep the text color after clicking (active state) */
+}
+
+.show-post-btn{
+  color: rgb(255, 30, 191);
+  background-color: rgb(21, 11, 79);
+  border-color: rgb(21, 11, 79);
+}
+.show-post-btn:hover {
+  color: rgb(255, 67, 233);
+  background-color: rgb(35, 11, 58);
+  border-color: rgb(0, 0, 0);
 }
