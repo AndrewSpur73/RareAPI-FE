@@ -61,6 +61,18 @@ const updatePost = (payload) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
+
+const getPostsByTag = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/post/tags/${id}`, {
+    method: 'GET',
+    headers: {
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
-  getAllPosts, getSinglePost, deletePost, createPost, updatePost,
+  getAllPosts, getSinglePost, deletePost, createPost, updatePost, getPostsByTag,
 };

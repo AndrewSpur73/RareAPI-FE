@@ -17,7 +17,7 @@ export default function NavBar() {
           <Image src="/images/image-removebg-preview.png" alt="RNKR" height={100} width={100} className="cursor-pointer" style={{ marginLeft: '50px' }} />
         </Link> */}
         <Link passHref href="/">
-          <Navbar.Brand>@$$</Navbar.Brand>
+          <Navbar.Brand>[Redacted]</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
