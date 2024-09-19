@@ -32,7 +32,7 @@ export default function ViewPost() {
   };
 
   const handleDelete = (commentId) => {
-    if (window.confirm('delete comment?')) {
+    if (window.confirm('Delete comment?')) {
       deleteComment(commentId)
         .then(() => {
           getPostDetails();
@@ -46,35 +46,45 @@ export default function ViewPost() {
   };
 
   return (
-    <div className="mt-5 d-flex flex-wrap">
-      <div className="d-flex flex-column">
-        <img src={postDetails?.imageUrl} alt={postDetails?.title} style={{ width: '300px' }} />
-      </div>
-      <div style={{ color: 'black' }}>
-        <h5>
-          {postDetails?.title}
-        </h5>
-        <div style={{ color: 'black', border: 'solid, 2px, black' }} className="d-flex flex-wrap">
-          {postDetails.postTags?.map((tag) => (
-            <span key={tag.tag.id} style={{ margin: '3px' }}>{tag.tag.name} </span>
-          ))}
+    <div className="mt-5 d-flex flex-column">
+      <div className="d-flex">
+        {/* Image on the left */}
+        <div className="me-3">
+          <img src={postDetails?.imageUrl} alt={postDetails?.title} style={{ width: '300px', height: 'auto', borderRadius: '8px' }} />
         </div>
-        <p>{postDetails?.content || ''}</p>
-        <hr />
+        {/* Title, tags, and content on the right */}
+        <div style={{ color: 'black', flex: 1 }}>
+          <h1 style={{ fontSize: '2rem', marginBottom: '10px' }}>{postDetails?.title}</h1>
+          <div style={{ color: 'black', marginBottom: '10px' }}>
+            {postDetails.postTags?.map((tag) => (
+              <span
+                key={tag.tag.id}
+                style={{
+                  margin: '3px',
+                  padding: '2px 5px',
+                  border: '1px solid #080a2b',
+                  borderRadius: '5px',
+                  display: 'inline-block',
+                }}
+              >
+                {tag.tag.name}
+              </span>
+            ))}
+          </div>
+          <p>{postDetails?.content || ''}</p>
+        </div>
       </div>
+      <hr />
+      {/* Comments section */}
       <div>
-        <CommentForm
-          postId={id}
-          onCommentAdded={addComment}
-        />
-        { postDetails.comments?.map((c) => (
+        <CommentForm postId={id} onCommentAdded={addComment} />
+        {postDetails.comments?.map((c) => (
           <CommentCard
             key={c.id}
             commentObj={c}
             user={user}
             consumeComment={handleDelete}
             updateComment={updateComment}
-
           />
         ))}
       </div>

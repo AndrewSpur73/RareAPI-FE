@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Image } from 'react-bootstrap';
 
 export default function CommentCard({
   commentObj, user, consumeComment, updateComment,
@@ -30,8 +30,21 @@ export default function CommentCard({
     <div>
       <Card style={{ width: '18rem' }}>
         <Card.Body>
-          <Card.Text>{commentObj.user?.userName}</Card.Text>
-          {edit ? (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Card.Text>{commentObj.user?.userName}</Card.Text>
+            <Image
+              src={commentObj.user?.imageUrl || 'default-image-url.jpg'}
+              alt={`${commentObj.user?.userName}'s profile`}
+              style={{
+                margin: '5px',
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                marginRight: '10px',
+              }}
+            />
+          </div>          {edit ? (
             <div>
               <textarea
                 value={editText}

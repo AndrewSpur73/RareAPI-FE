@@ -29,9 +29,9 @@ export default function ShowAllPosts() {
     <div id="post-page-div" style={{ marginTop: '50px' }}>
       <div>
         <Dropdown>
-          <Button className="show-post-btn" variant="success" onClick={showPosts}>All Posts</Button>
+          <Button className="show-post-btn" onClick={showPosts}>All Posts</Button>
 
-          <Dropdown.Toggle split variant="success" id="dropdown-split-basic" className="show-post-btn" />
+          <Dropdown.Toggle id="dropdown-split-basic" className="show-post-btn" />
 
           <Dropdown.Menu>
             {tags.map((tag) => (
