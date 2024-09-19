@@ -1,46 +1,41 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import Link from 'next/link';
 import {
-  Navbar, //
+  Navbar,
   Container,
   Nav,
-  Button,
+  Image,
 } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import UserMenu from './UserMenu';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" variant="dark" style={{ fontSize: '30px', background: '#080a2b', color: '#ffffff' }}>
       <Container>
-        {/* <Link passHref href="/">
-          <Image src="/images/image-removebg-preview.png" alt="RNKR" height={100} width={100} className="cursor-pointer" style={{ marginLeft: '50px' }} />
-        </Link> */}
         <Link passHref href="/">
-          <Navbar.Brand>[Redacted]</Navbar.Brand>
+          <Image src="/images/logo2.png" alt="Redacted" height={100} width={300} className="cursor-pointer" style={{ marginLeft: '50px' }} />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
+          {/* Left-aligned items */}
           <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
-            <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
-            </Link>
-            <Link passHref href="/users">
-              <Nav.Link>Profile Page</Nav.Link>
-            </Link>
             <Link passHref href="/feed">
-              <Nav.Link>Feed</Nav.Link>
+              <Nav.Link className="navbar-text">Feed</Nav.Link>
             </Link>
             <Link passHref href="/new">
-              <Nav.Link>Add a Post</Nav.Link>
+              <Nav.Link className="navbar-text">Add a Post</Nav.Link>
             </Link>
             <Link passHref href="/tags">
-              <Nav.Link>Tags</Nav.Link>
+              <Nav.Link className="navbar-text">Tags</Nav.Link>
             </Link>
-            <Button variant="danger" onClick={signOut}>
-              Sign Out
-            </Button>
+          </Nav>
+
+          {/* Right-aligned items */}
+          <Nav>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <div className="userMenu">
+              <UserMenu />
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
