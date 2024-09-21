@@ -73,6 +73,17 @@ const getPostsByTag = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getPostsByUser = (userId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/post/user/${userId}`, {
+    method: 'GET',
+    headers: {
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 export {
-  getAllPosts, getSinglePost, deletePost, createPost, updatePost, getPostsByTag,
+  getAllPosts, getSinglePost, deletePost, createPost, updatePost, getPostsByTag, getPostsByUser,
 };
