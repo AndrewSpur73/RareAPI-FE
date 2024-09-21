@@ -68,72 +68,78 @@ export default function PostForm({ obj }) {
     }
   };
 
+  const isOwner = !obj.id || obj.userId === user.id;
+
   return (
     <div className="flex w-[500px] mx-auto inter-normal">
       <div className="flex-grow mt-32">
-        <Form onSubmit={handleSubmit}>
-          <Form.Label>{obj.id ? 'Update' : 'Create'} Post</Form.Label>
+        {isOwner ? (
+          <Form onSubmit={handleSubmit}>
+            <Form.Label>{obj.id ? 'Update' : 'Create'} Post</Form.Label>
 
-          {/* TITLE INPUT */}
-          <Form.Group controlId="formTitle" className="mb-3">
-            <Form.Control
-              type="text"
-              placeholder="Enter a title"
-              name="title"
-              value={formInput.title}
-              onChange={handleChange}
-              className="input rounded-none"
-              required
-            />
-          </Form.Group>
+            {/* TITLE INPUT */}
+            <Form.Group controlId="formTitle" className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Enter a title"
+                name="title"
+                value={formInput.title}
+                onChange={handleChange}
+                className="input rounded-none"
+                required
+              />
+            </Form.Group>
 
-          {/* CONTENT TEXTAREA */}
-          <Form.Group controlId="formContent" className="mb-3">
-            <Form.Control
-              as="textarea"
-              placeholder="Content"
-              style={{ height: '100px' }}
-              name="content"
-              value={formInput.content}
-              onChange={handleChange}
-              className="input rounded-none"
-              required
-            />
-          </Form.Group>
+            {/* CONTENT TEXTAREA */}
+            <Form.Group controlId="formContent" className="mb-3">
+              <Form.Control
+                as="textarea"
+                placeholder="Content"
+                style={{ height: '100px' }}
+                name="content"
+                value={formInput.content}
+                onChange={handleChange}
+                className="input rounded-none"
+                required
+              />
+            </Form.Group>
 
-          {/* IMAGE URL */}
-          <Form.Group controlId="formBasicImage" className="mb-3">
-            <Form.Control
-              type="url"
-              name="imageUrl"
-              placeholder="Enter an image URL"
-              value={formInput.imageUrl || ''}
-              onChange={handleChange}
-              className="input rounded-none"
-            />
-          </Form.Group>
+            {/* IMAGE URL */}
+            <Form.Group controlId="formBasicImage" className="mb-3">
+              <Form.Control
+                type="url"
+                name="imageUrl"
+                placeholder="Enter an image URL"
+                value={formInput.imageUrl || ''}
+                onChange={handleChange}
+                className="input rounded-none"
+              />
+            </Form.Group>
 
-          {/* TAG CHECKBOXES */}
-          <div>
-            <b>Tags: </b>
-            {tags.map((tag) => (
-              <label key={tag.id}>
-                <input
-                  type="checkbox"
-                  value={tag.id}
-                  onChange={handleChange}
-                  checked={formInput.tagIds.includes(tag.id)} // Safeguard against undefined tagIds
-                />
-                {tag.name}
-              </label>
-            ))}
-          </div>
+            {/* TAG CHECKBOXES */}
+            <div>
+              <b>Tags: </b>
+              {tags.map((tag) => (
+                <label key={tag.id}>
+                  <input
+                    type="checkbox"
+                    value={tag.id}
+                    onChange={handleChange}
+                    checked={formInput.tagIds.includes(tag.id)} // Safeguard against undefined tagIds
+                  />
+                  {tag.name}
+                </label>
+              ))}
+            </div>
 
-          {/* SUBMIT BUTTON */}
-          <Button type="submit" className="form-button">
-            {obj.id ? 'Update' : 'Create'} Post
-          </Button>
-        </Form>
+            {/* SUBMIT BUTTON */}
+            <Button type="submit" className="form-button">
+              {obj.id ? 'Update' : 'Create'} Post
+            </Button>
+          </Form>
+        ) : (
+          <p>You do not have permission to edit this post.</p>
+        )}
       </div>
     </div>
   );
@@ -145,6 +151,7 @@ PostForm.propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
     imageUrl: PropTypes.string,
+    userId: PropTypes.number,
     tag: PropTypes.string,
     postTags: PropTypes.arrayOf(PropTypes.shape({ // Define postTags as an array of objects
       tag: PropTypes.shape({
