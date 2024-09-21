@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-// import Link from 'next/link';
 
 function UserDetailCard({ userDetails }) {
   return (
@@ -28,11 +26,6 @@ function UserDetailCard({ userDetails }) {
         <Card.Text><strong>User Name:</strong> {userDetails.userName}</Card.Text>
         <Card.Text><strong>Email:</strong> {userDetails.email}</Card.Text>
         <Card.Text><strong>Bio:</strong> {userDetails.bio}</Card.Text>
-        <div className="d-flex flex-column align-items-center justify-content-center">
-          {/* <Link href={`/user/${userDetails.id}`} passHref>
-            <Button className="user-card-button" variant="danger">EDIT</Button>
-          </Link> */}
-        </div>
       </Card.Body>
     </Card>
   );

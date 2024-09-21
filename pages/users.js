@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import UserCard from '../components/cards/UserCard';
-import getUserDetails from '../api/userData';
+import { getUserDetails } from '../api/userData';
 import { getAllPosts } from '../api/postData';
 import PostCard from '../components/cards/PostCard';
 import { useAuth } from '../utils/context/authContext';
