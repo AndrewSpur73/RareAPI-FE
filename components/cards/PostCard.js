@@ -3,14 +3,19 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { useAuth } from '../../utils/context/authContext';
 import { deletePost } from '../../api/postData';
 
 function PostCard({ postObj, onUpdate }) {
+  const { user } = useAuth();
+
   const deleteThisPost = () => {
     if (window.confirm(`Delete ${postObj.title}?`)) {
       deletePost(postObj.id).then(() => onUpdate());
     }
   };
+
+  const isOwner = user?.id === postObj.userId;
 
   return (
     <Card
@@ -39,12 +44,16 @@ function PostCard({ postObj, onUpdate }) {
           <Link href={`/post/${postObj.id}`} passHref>
             <Button variant="primary" className="m-2 btn-lg">VIEW</Button>
           </Link>
-          <Link href={`/post/edit/${postObj.id}`} passHref>
-            <Button variant="info" className="m-2 btn-lg">EDIT</Button>
-          </Link>
-          <Button variant="danger" onClick={deleteThisPost} className="m-2 btn-lg">
-            DELETE
-          </Button>
+          {isOwner && ( // Conditionally render the EDIT button if the user is the owner
+            <Link href={`/post/edit/${postObj.id}`} passHref>
+              <Button variant="info" className="m-2 btn-lg">EDIT</Button>
+            </Link>
+          )}
+          {isOwner && ( // Conditionally render the DELETE button if the user is the owner
+            <Button variant="danger" onClick={deleteThisPost} className="m-2 btn-lg">
+              DELETE
+            </Button>
+          )}
         </div>
       </Card.Body>
     </Card>
@@ -56,7 +65,7 @@ PostCard.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
-    userId: PropTypes.number,
+    userId: PropTypes.number, // Make sure the userId is part of postObj
     postTags: PropTypes.arrayOf(PropTypes.shape({
       tag: PropTypes.shape({
         id: PropTypes.number,
@@ -65,5 +74,4 @@ PostCard.propTypes = {
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
-
 export default PostCard;
